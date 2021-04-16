@@ -17,4 +17,15 @@ router.get('/greeting', (req, res)=>{
     })
 });
 
+//Get using ID
+router.get('/greeting/:id', (req, res)=>{
+    mysql.connection.query('select * from greetings where id = ?',[req.params.id],(err, rows)=>{
+        if (!err) {
+            res.send(rows)
+        }else{
+            res.send(err);
+        }
+    })
+});
+
   module.exports = router;
