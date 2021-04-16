@@ -13,5 +13,7 @@ router.get('/greeting/:id',control.getDataWithID)
 //Delete Data from DB using ID
 router.delete('/greeting/:id', control.deleteData)
 
+//Create Data into the DB
+router.post('/greeting', control.createData) 
   
 module.exports = router;

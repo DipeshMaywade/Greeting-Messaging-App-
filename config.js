@@ -4,6 +4,7 @@ const config = {
       user: 'root',
       password: 'Deep@123',
       database:'greetingapp',
+      multipleStatements: true
     }
   };
   

@@ -37,10 +37,27 @@ const deleteData = (req, res)=>{
     })
 };
 
+//Insert Data into DB
+const createData = (req, res)=>{
+    let greet = req.body;
+    var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
+
+    mysql.connection.query(sql,[greet.id, greet.name, greet.message],(err, rows, filed)=>{
+        if (!err) {
+            rows.forEach(element => {
+                if (element.constructor == Array)
+                res.send(`Inserted ID: ${element[0].id}`)
+            });
+        }else{
+            res.send(err);
+        }
+    })
+};
 
   module.exports={
       "okTest": okTest,
       "getData": getData,
       "getDataWithID": getDataWithID,
-      "deleteData": deleteData
+      "deleteData": deleteData,
+      "createData": createData
   }
