@@ -16,4 +16,8 @@ router.delete('/greeting/:id', control.deleteData)
 //Create Data into the DB
 router.post('/greeting', control.createData) 
   
+//Update Data into the DB
+router.put('/greeting', control.updateData) 
+  
+
 module.exports = router;

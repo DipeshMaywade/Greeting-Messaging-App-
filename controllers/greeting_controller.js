@@ -54,10 +54,29 @@ const createData = (req, res)=>{
     })
 };
 
+//Update Data from DB
+const updateData = (req, res)=>{
+    let greet = req.body;
+    var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
+
+    mysql.connection.query(sql,[greet.id, greet.name, greet.message],(err, rows, filed)=>{
+        if (!err) {
+            rows.forEach(element => {
+                if (element.constructor == Array)
+                res.send("Updated Successfully...")
+            });
+        }else{
+            res.send(err);
+        }
+    })
+};
+
+
   module.exports={
       "okTest": okTest,
       "getData": getData,
       "getDataWithID": getDataWithID,
       "deleteData": deleteData,
-      "createData": createData
+      "createData": createData,
+      "updateData": updateData
   }
