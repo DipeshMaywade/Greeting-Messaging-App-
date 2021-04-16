@@ -28,4 +28,14 @@ router.get('/greeting/:id', (req, res)=>{
     })
 });
 
+router.delete('/greeting/:id', (req, res)=>{
+    mysql.connection.query('delete from greetings where id = ?',[req.params.id],(err, rows, filed)=>{
+        if (!err) {
+            res.send("Delete Sucessfully..!")
+        }else{
+            res.send(err);
+        }
+    })
+});
+
   module.exports = router;
