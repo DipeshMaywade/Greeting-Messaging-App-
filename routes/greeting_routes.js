@@ -1,41 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('../services/db')
+const control = require('../controllers/greeting_controller');
 
-router.get('/', (req, res) => {
-    res.json({'message': 'ok'});
-  });
+router.get('/', control.okTest)
 
+//Get all Data
+router.get('/greeting', control.getData)
 
-router.get('/greeting', (req, res)=>{
-    mysql.connection.query('select * from greetings',(err, rows)=>{
-        if (!err) {
-            res.send(rows)
-        }else{
-            res.send(err);
-        }
-    })
-});
+//Get data using ID
+router.get('/greeting/:id',control.getDataWithID)
 
-//Get using ID
-router.get('/greeting/:id', (req, res)=>{
-    mysql.connection.query('select * from greetings where id = ?',[req.params.id],(err, rows)=>{
-        if (!err) {
-            res.send(rows)
-        }else{
-            res.send(err);
-        }
-    })
-});
+//Delete Data from DB using ID
+router.delete('/greeting/:id', control.deleteData)
 
-router.delete('/greeting/:id', (req, res)=>{
-    mysql.connection.query('delete from greetings where id = ?',[req.params.id],(err, rows, filed)=>{
-        if (!err) {
-            res.send("Delete Sucessfully..!")
-        }else{
-            res.send(err);
-        }
-    })
-});
-
-  module.exports = router;
+  
+module.exports = router;
