@@ -1,4 +1,11 @@
-const mysql = require('../config.js')
+const mysqlObj = require('../config.js');
+const joi = require('joi');
+
+const schema = joi.object({
+    id: joi.number().required(),
+    name : joi.string().min(3).max(10).pattern(new RegExp("^[A-Z]{1}[a-z]{2,}$")).required(),
+    message : joi.string().required()
+})
 
 //success message
 const okTest = (req, res) => {
@@ -8,7 +15,7 @@ const okTest = (req, res) => {
 
 //get all Data from DB
 const getData = (req, res)=>{
-    mysql.connection.query('select * from greetings',(err, rows)=>{
+    mysqlObj.connection.query('select * from greetings',(err, rows)=>{
         if (!err) {
             res.send(rows)
         }else{
@@ -18,7 +25,7 @@ const getData = (req, res)=>{
 };
 
 const getDataWithID = (req, res)=>{
-    mysql.connection.query('select * from greetings where id = ?',[req.params.id],(err, rows)=>{
+    mysqlObj.connection.query('select * from greetings where id = ?',[req.params.id],(err, rows)=>{
         if (!err) {
             res.send(rows)
         }else{
@@ -28,7 +35,7 @@ const getDataWithID = (req, res)=>{
 };
 
 const deleteData = (req, res)=>{
-    mysql.connection.query('delete from greetings where id = ?',[req.params.id],(err, rows, filed)=>{
+    mysqlObj.connection.query('delete from greetings where id = ?',[req.params.id],(err, rows, filed)=>{
         if (!err) {
             res.send("Delete Sucessfully..!")
         }else{
@@ -39,10 +46,19 @@ const deleteData = (req, res)=>{
 
 //Insert Data into DB
 const createData = (req, res)=>{
-    let greet = req.body;
-    var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
+    let name = req.body.name;
+    let message = req.body.message;
+    let id = req.body.id;
 
-    mysql.connection.query(sql,[greet.id, greet.name, greet.message],(err, rows)=>{
+    let result = schema.validate(req.body)
+
+    if (result.error){
+        res.status(400).send(result.error.details[0].message)
+        return;
+    }
+   
+    var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
+    mysqlObj.connection.query(sql,[id, name, message],(err, rows)=>{
         if (!err) {
             rows.forEach(element => {
                 if (element.constructor == Array)
@@ -56,10 +72,20 @@ const createData = (req, res)=>{
 
 //Update Data from DB
 const updateData = (req, res)=>{
-    let greet = req.body;
+    let name = req.body.name;
+    let message = req.body.message;
+    let id = req.body.id;
+
+    let result = schema.validate(req.body)
+
+    if (result.error){
+        res.status(400).send(result.error.details[0].message)
+        return;
+    }
+
     var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
 
-    mysql.connection.query(sql,[greet.id, greet.name, greet.message],(err, rows, filed)=>{
+    mysqlObj.connection.query(sql,[id, name, message],(err, rows, filed)=>{
         if (!err) {
             rows.forEach(element => {
                 if (element.constructor == Array)
