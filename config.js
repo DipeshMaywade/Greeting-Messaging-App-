@@ -1,6 +1,5 @@
 const mysql = require('mysql');
 require('dotenv').config();
-
 const env = process.env
 
 const config = {

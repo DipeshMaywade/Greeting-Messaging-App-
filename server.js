@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const mysql = require('./config')
 const greetingRoutes = require('./routes/greeting_routes')
+const logger = require('./logger');
 
 const app = express();
 const port = process.env.PORT;
@@ -24,5 +25,5 @@ mysql.connection.connect((error)=>{
 app.use(greetingRoutes);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  logger.log('info',`Example app listening at http://localhost:${port}`)
 });
