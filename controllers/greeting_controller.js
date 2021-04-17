@@ -1,4 +1,4 @@
-const mysql = require('../services/db')
+const mysql = require('../config.js')
 
 //success message
 const okTest = (req, res) => {
@@ -42,7 +42,7 @@ const createData = (req, res)=>{
     let greet = req.body;
     var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
 
-    mysql.connection.query(sql,[greet.id, greet.name, greet.message],(err, rows, filed)=>{
+    mysql.connection.query(sql,[greet.id, greet.name, greet.message],(err, rows)=>{
         if (!err) {
             rows.forEach(element => {
                 if (element.constructor == Array)

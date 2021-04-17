@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
-const mysql = require('./services/db')
+require('dotenv').config();
+const mysql = require('./config')
 const greetingRoutes = require('./routes/greeting_routes')
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
