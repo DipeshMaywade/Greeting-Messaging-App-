@@ -1,8 +1,29 @@
 const express = require('express');
-require('dotenv').config();
-const mysql = require('./config')
-const greetingRoutes = require('./routes/greeting_routes')
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+const mysql = require('./config');
+const greetingRoutes = require('./routes/greeting_routes');
 const logger = require('./logger');
+require('dotenv').config();
+
+const swaggerOption = {
+  defination: {
+    openapi: '3.0.0',
+    info: {
+      title: 'GreetingApp',
+      description: 'Greetinng app UI',
+      contect:{
+        name: "Deep"
+      },
+      version: '1.0.0',
+      servers:["http://localhost:3000"]
+    } 
+  },
+  apis: ['server.js']
+}
+
+const swaggerDocs = swaggerJSDoc(swaggerOption);
+app.use('/swagger-api', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 const app = express();
 const port = process.env.PORT;
