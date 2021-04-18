@@ -3,14 +3,14 @@ const winston_mysql = require('winston-mysql');
 require('dotenv').config();
 const env = process.env
 
-const db = { 
-    host: env.HOST,
-    user: env.USER,
-    password: env.PASSWORD,
-    database: 'logdetails',
-    table: 'sys_logs_default',
-    fields   : { level: 'mylevel', meta: 'metadata', message: 'source', timestamp: 'addDate'}
-  }
+// const db = { 
+//     host: env.HOST,
+//     user: env.USER,
+//     password: env.PASSWORD,
+//     database: 'logdetails',
+//     table: 'sys_logs_default',
+//     fields   : { level: 'mylevel', meta: 'metadata', message: 'source', timestamp: 'addDate'}
+//   }
 
 const {createLogger, transports, format} = require('winston');
 
@@ -24,7 +24,7 @@ const logger = createLogger({
         }),
         new transports.Console({
             level: 'info',
-            format: format.combine(format.timestamp(),format.simple()) 
+            format: format.combine(format.timestamp(),format.json()) 
         }),
     ]
 })

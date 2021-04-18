@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 require('dotenv').config();
 const mysql = require('./config')
 const greetingRoutes = require('./routes/greeting_routes')
@@ -8,8 +7,8 @@ const logger = require('./logger');
 const app = express();
 const port = process.env.PORT;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
     extended: true,
   })
 );

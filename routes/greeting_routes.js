@@ -1,23 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const controlObj = require('../controllers/greeting_controller');
+const controllObj = require('../controllers/greeting_controller');
 
-router.get('/', controlObj.okTest)
+router.get('/', controllObj.okTest)
 
 //Get all Data
-router.get('/greeting', controlObj.getData)
+router.get('/greeting', controllObj.getData)
 
 //Get data using ID
-router.get('/greeting/:id',controlObj.getDataWithID)
+router.get('/greeting/:id',controllObj.getDataWithID)
 
 //Delete Data from DB using ID
-router.delete('/greeting/:id', controlObj.deleteData)
+router.delete('/greeting/:id', controllObj.deleteData)
 
 //Create Data into the DB
-router.post('/greeting', controlObj.createData) 
+router.post('/greeting', controllObj.createData) 
   
 //Update Data into the DB
-router.put('/greeting', controlObj.updateData) 
+router.put('/greeting', controllObj.updateData) 
   
 
 module.exports = router;
