@@ -13,6 +13,14 @@ const config = {
   };
   
   const connection = mysql.createConnection(config.db);
+
+  connection.connect((error)=>{
+    if (!error) {
+        console.log("DB Conection SucessFull");
+    }else{
+        console.log("DB Connection Failed: "+JSON.stringify(error, undefined,2));
+    }
+})
   
   connection.connect((error)=>{
     if (!error) {

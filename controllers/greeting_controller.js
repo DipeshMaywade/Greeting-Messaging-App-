@@ -1,5 +1,5 @@
 const mysqlObj = require('../config.js');
-const validateSchema = require('../services/validationService')
+const validateSchema = require('../utility/validationService')
 
 class Controller{
     //success message
