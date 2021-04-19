@@ -48,8 +48,8 @@ class Controller{
         let result = validateSchema.schema.validate(req.body)
 
         if (result.error){
-            res.status(400).send(result.error.details[0].message)
-            return;
+            return res.status(400).send(result)
+            
         }
    
         var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;

@@ -29,10 +29,11 @@ const logger = createLogger({
     ]
 })
 
-// var logger = new (winston.Logger)({
+// const logger = new (winston.Logger)({
 //     transports: [
 //       new winston_mysql(db)
 //     ]
 //     });
+//     logger.info('first log', {message: ms})
 
 module.exports = logger;

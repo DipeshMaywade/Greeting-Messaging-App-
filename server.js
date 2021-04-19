@@ -1,6 +1,5 @@
 const express = require('express');
 require('dotenv').config();
-const mysql = require('./config')
 const greetingRoutes = require('./routes/greeting_routes')
 const logger = require('./logger');
 
@@ -12,14 +11,6 @@ app.use(express.urlencoded({
     extended: true,
   })
 );
-
-mysql.connection.connect((error)=>{
-    if (!error) {
-        console.log("DB Conection SucessFull");
-    }else{
-        console.log("DB Connection Failed: "+JSON.stringify(error, undefined,2));
-    }
-})
 
 app.use(greetingRoutes);
 
