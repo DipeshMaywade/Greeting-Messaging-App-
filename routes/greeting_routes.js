@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const controllObj = require('../controllers/greeting_controller');
 
-router.get('/', controllObj.okTest)
-
 //Get all Data
 router.get('/greeting', controllObj.getData)
 
@@ -17,7 +15,7 @@ router.delete('/greeting/:id', controllObj.deleteData)
 router.post('/greeting', controllObj.createData) 
   
 //Update Data into the DB
-router.put('/greeting', controllObj.updateData) 
+router.put('/greeting/:id', controllObj.updateData) 
   
 
 module.exports = router;

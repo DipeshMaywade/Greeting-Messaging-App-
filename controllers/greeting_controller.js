@@ -1,16 +1,12 @@
 const mysqlObj = require('../config.js');
 const validateSchema = require('../utility/validationService')
+const modelsObj = require('../models/model.js')
 
 class Controller{
-    //success message
-    okTest = (req, res) => {
-        res.json({'message': 'ok'});
-    };
-
 
     //get all Data from DB
     getData = (req, res)=>{
-        mysqlObj.connection.query('select * from greetings',(err, rows)=>{
+        mysqlObj.connection.query(modelsObj.getSql, (err, rows)=>{
             if (!err) {
                 res.send(rows)
             }else{
@@ -20,7 +16,7 @@ class Controller{
     };
 
     getDataWithID = (req, res)=>{
-        mysqlObj.connection.query('select * from greetings where id = ?',[req.params.id],(err, rows)=>{
+        mysqlObj.connection.query(modelsObj.getWithId, [req.params.id],(err, rows)=>{
             if (!err) {
                 res.send(rows)
             }else{
@@ -30,7 +26,7 @@ class Controller{
     };
 
     deleteData = (req, res)=>{
-        mysqlObj.connection.query('delete from greetings where id = ?',[req.params.id],(err)=>{
+        mysqlObj.connection.query(modelsObj.deleteSql, [req.params.id],(err)=>{
             if (!err) {
                 res.send("Delete Sucessfully..!")
             }else{
@@ -41,9 +37,10 @@ class Controller{
 
     //Insert Data into DB
     createData = (req, res)=>{
-        let name = req.body.name;
-        let message = req.body.message;
-        let id = req.body.id;
+        let data = {
+            name: req.body.name,
+            message: req.body.message
+        }
 
         let result = validateSchema.schema.validate(req.body)
 
@@ -52,12 +49,11 @@ class Controller{
             
         }
    
-        var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
-        mysqlObj.connection.query(sql,[id, name, message],(err, rows)=>{
+        mysqlObj.connection.query(modelsObj. createSql, [0,data.name, data.message],(err, rows)=>{
             if (!err) {
                 rows.forEach(element => {
                     if (element.constructor == Array)
-                    res.send(`Inserted ID: ${element[0].id}`)
+                    res.send(`Inserted Data ID Is: ${element[0].id}`)
                 });
             }else{
                 res.send(err);
@@ -67,10 +63,11 @@ class Controller{
 
     //Update Data from DB
     updateData = (req, res)=>{
-        let name = req.body.name;
-        let message = req.body.message;
-        let id = req.body.id;
-
+        let data = {
+            name: req.body.name,
+            message: req.body.message
+        }
+        
         let result = validateSchema.schema.validate(req.body)
 
         if (result.error){
@@ -78,9 +75,7 @@ class Controller{
             return;
         }
 
-        var sql = "SET @id=?; SET @name=?; Set @message=?; Call greetingAddOrEdit(@id, @name, @message);" ;
-
-        mysqlObj.connection.query(sql,[id, name, message],(err, rows, filed)=>{
+        mysqlObj.connection.query(modelsObj.updateSql,[req.params.id, data.name, data.message],(err, rows, filed)=>{
             if (!err) {
                 rows.forEach(element => {
                     if (element.constructor == Array)
