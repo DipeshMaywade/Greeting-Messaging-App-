@@ -1,7 +1,5 @@
 const {createLogger, transports, format} = require('winston');
-const winston_mysql = require('winston-mysql');
 require('dotenv').config();
-
 
 const logger = createLogger({
     transports: [

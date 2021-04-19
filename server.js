@@ -4,11 +4,6 @@ const greetingRoutes = require('./routes/greeting_routes');
 const logger = require('./utility/logger');
 const swaggerOption = require ('./swagger.json')
 require('dotenv').config();
-<<<<<<< HEAD
-const greetingRoutes = require('./routes/greeting_routes')
-const logger = require('./logger');
-=======
->>>>>>> DevlopmentBranch
 
 const app = express();
 const port = process.env.PORT;
@@ -20,11 +15,8 @@ app.use(express.urlencoded({
   })
 );
 
-<<<<<<< HEAD
-=======
 app.use('/swagger-api', swaggerUI.serve, swaggerUI.setup(swaggerOption));
 
->>>>>>> DevlopmentBranch
 app.use(greetingRoutes);
 
 app.listen(port, () => {
