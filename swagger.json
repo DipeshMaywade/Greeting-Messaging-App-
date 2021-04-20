@@ -110,6 +110,20 @@
                         "description": "Not Found"
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "Greets"
+                ],
+                "summary": "Delete Greets With ID..",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
             }
         }
     }
