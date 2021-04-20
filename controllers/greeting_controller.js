@@ -1,6 +1,8 @@
 const mysqlObj = require("../config.js");
 const validateSchema = require("../utility/helper");
 const modelsObj = require("../models/model.js");
+const logger = require("../utility/logger");
+
 
 class Controller {
   //get all Data from DB
@@ -52,7 +54,9 @@ class Controller {
     let result = validateSchema.schema.validate(req.body);
 
     if (result.error) {
-      return res.status(400).send(result);
+      logger.log("error", `${result.error.details[0].message}`)
+      res.status(400).send(result.error.details[0].message);
+      return;
     }
 
     mysqlObj.connection.query(

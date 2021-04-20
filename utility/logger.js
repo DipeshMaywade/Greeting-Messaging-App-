@@ -8,6 +8,11 @@ const logger = createLogger({
       level: "info",
       format: format.combine(format.timestamp(), format.json()),
     }),
+    new transports.File({
+        filename: "./log/error.log",
+        level: "error",
+        format: format.combine(format.timestamp(), format.json()),
+      }),
     new transports.Console({
       level: "info",
       format: format.combine(format.timestamp(), format.json()),
