@@ -1,0 +1,116 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "GreetingApp",
+        "description": "Response Greeting Messages",
+        "license": {
+            "name": "MIT",
+            "url": "http://localhost/3000"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Greet",
+            "description": "Response Greeting Messages"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/greeting": {
+            "get": {
+                "tags": [
+                    "Greets"
+                ],
+                "summary": "Get All Greets..",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Greets"
+                ],
+                "summary": "Create New Greets..",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Greets That Want To Create"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/greeting/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID Of The Greet You Want",
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Greets"
+                ],
+                "summary": "Get Greets With ID..",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Greets"
+                ],
+                "summary": "Update Greets With ID..",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "description": "Greets That Want To Create"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    }
+}
