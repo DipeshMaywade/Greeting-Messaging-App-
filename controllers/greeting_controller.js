@@ -17,10 +17,7 @@ class Controller {
   };
 
   getDataWithID = (req, res) => {
-    mysqlObj.connection.query(
-      modelsObj.getWithId,
-      [req.params.id],
-      (err, rows) => {
+    mysqlObj.connection.query(modelsObj.getWithId,[req.params.id],(err, rows) => {
         if (!err) {
             if(rows.length == 0){
                 return res.status(404).send("Data Not Found")
@@ -55,8 +52,7 @@ class Controller {
 
     if (result.error) {
       logger.log("error", `${result.error.details[0].message}`)
-      res.status(400).send(result.error.details[0].message);
-      return;
+      return res.status(400).send(result);
     }
 
     mysqlObj.connection.query(
@@ -81,9 +77,8 @@ class Controller {
       name: req.body.name,
       message: req.body.message,
     };
-
     let result = validateSchema.schema.validate(req.body);
-
+    
     if (result.error) {
         return res.status(400).send(result.error.details[0].message);
     }
