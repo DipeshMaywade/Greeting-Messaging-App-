@@ -1,6 +1,13 @@
 const mysqlObj = require("../config.js");
 
+/** To pass the request and response to the databse
+ * @class Query
+ * @param {httpRequest} req
+ * @param {httpresponse} res
+ */
+
 class Query {
+  //For Getting all value from database.
   get = (req, res) => {
     mysqlObj.connection.query("select * from greetings", (err, rows) => {
       if (!err) {
@@ -11,6 +18,7 @@ class Query {
     });
   };
 
+  //For Getting value by from database.
   getWithId = (req, res) => {
     mysqlObj.connection.query(
       "select * from greetings where id = ?",
@@ -29,6 +37,7 @@ class Query {
     );
   };
 
+  //For delete specific value from database.
   deleteWithId = (req, res) => {
     mysqlObj.connection.query(
       "delete from greetings where id = ?",
@@ -43,6 +52,7 @@ class Query {
     );
   };
 
+  //For updtae specific value from database.
   update = (req, res) => {
     let data = {
       name: req.body.name,
@@ -62,6 +72,7 @@ class Query {
     );
   };
 
+  //For creat new data into the database.
   create = (req, res) => {
     let data = {
       name: req.body.name,

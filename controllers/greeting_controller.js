@@ -1,19 +1,28 @@
 const validateSchema = require("../utility/helper");
-const modelsObj = require("../models/model.js");
+const serviceObj = require("../services/greetService");
 const logger = require("../utility/logger");
 
+/**controller to past request to greetService
+ * @class Controller
+ * @param {httpRequest} req
+ * @param {httpresponse} res
+ */
+
 class Controller {
+
   //get all Data from DB
   getData = (req, res) => {
-    modelsObj.get(req, res);
+    serviceObj.getData(req, res);
   };
 
+  //get all Data from DB Using ID
   getDataWithID = (req, res) => {
-    modelsObj.getWithId(req, res);
+    serviceObj.getWithId(req, res);
   };
 
+  //delete all Data from DB Using ID
   deleteData = (req, res) => {
-    modelsObj.deleteWithId(req, res);
+    serviceObj.deleteWithId(req, res);
   };
 
   //Insert Data into DB
@@ -24,7 +33,7 @@ class Controller {
       logger.log("error", `${result.error.details[0].message}`);
       return res.status(400).send(result);
     }
-    modelsObj.create(req, res);
+    serviceObj.createNewData(req, res);
   };
 
   //Update Data from DB
@@ -34,7 +43,7 @@ class Controller {
     if (result.error) {
       return res.status(400).send(result.error.details[0].message);
     }
-    modelsObj.update(req, res);
+    serviceObj.updateDataWithId(req, res);
   };
 }
 
