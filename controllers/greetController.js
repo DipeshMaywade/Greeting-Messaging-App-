@@ -27,14 +27,15 @@ class Controller {
   /**geetting the data with ID
    * @method getWithId is service level method
    * @var responseResult object for store response.
+   * @param result callback parameter
    */
   getDataWithID = (req, res) => {
     var responseResult = {};
     serviceObj.getWithId(req, (result) => {
-      if (result == null ) {
-        responseResult.success= false;
-        responseResult.message = "Data Not Found"
-        res.status(404).send(responseResult)
+      if (result == null) {
+        responseResult.success = false;
+        responseResult.message = "Data Not Found";
+        res.status(404).send(responseResult);
       } else {
         responseResult.success = true;
         responseResult.result = result;
@@ -45,14 +46,16 @@ class Controller {
 
   /**deleting the data with ID
    * @method deleteWithId is service level method
+   * @var responseResult object for store response.
+   * @param result callback parameter
    */
   deleteData = (req, res) => {
-    let responseResult = {};
+    var responseResult = {};
     serviceObj.deleteWithId(req, (result) => {
-      if (result == null ) {
-        responseResult.success= false;
-        responseResult.message = "Data Not Found"
-        res.status(404).send(responseResult)
+      if (result == null) {
+        responseResult.success = false;
+        responseResult.message = "Data Not Found";
+        res.status(404).send(responseResult);
       } else {
         responseResult.success = true;
         responseResult.result = result;
@@ -63,22 +66,24 @@ class Controller {
 
   /**creating new data
    * @method createNewData is service level method
+   * @var responseResult object for store response.
+   * @param result callback parameter
    */
   createData = (req, res) => {
-    let responseResult = {};
+    var responseResult = {};
     let result = validateSchema.schema.validate(req.body);
     if (result.error) {
-      responseResult.success= false;
-      responseResult.message = "Bad Request"
-      responseResult.result = result.error.details[0].message
+      responseResult.success = false;
+      responseResult.message = "Bad Request";
+      responseResult.result = result.error.details[0].message;
       logger.log("error", `${result.error.details[0].message}`);
-      return res.status(422).send(responseResult)
+      return res.status(422).send(responseResult);
     }
     serviceObj.createNewData(req, (result) => {
-      if(result == null){
-        responseResult.success= false;
-        responseResult.message = "failed"
-        res.status(422).send(responseResult)
+      if (result == null) {
+        responseResult.success = false;
+        responseResult.message = "failed";
+        res.status(422).send(responseResult);
       } else {
         responseResult.success = true;
         responseResult.result = result;
@@ -89,29 +94,31 @@ class Controller {
 
   /**updating the data with ID
    * @method updateDataWithId is service level method
+   * @var responseResult object for store response.
+   * @param result callback parameter
    */
   updateData = (req, res) => {
     let responseResult = {};
     let result = validateSchema.schema.validate(req.body);
     if (result.error) {
-      responseResult.success= false;
-      responseResult.message = "Bad Request"
-      responseResult.result = result.error.details[0].message
+      responseResult.success = false;
+      responseResult.message = "Bad Request";
+      responseResult.result = result.error.details[0].message;
       logger.log("error", `${result.error.details[0].message}`);
-      return res.status(422).send(responseResult)
+      return res.status(422).send(responseResult);
     }
     serviceObj.updateDataWithId(req, (result) => {
-      if(result == null){
-        responseResult.success= false;
-        responseResult.message = "Data not found"
-        res.status(404).send(responseResult)
+      if (result == null) {
+        responseResult.success = false;
+        responseResult.message = "Data not found";
+        res.status(404).send(responseResult);
       } else {
         responseResult.success = true;
         responseResult.result = result;
         res.status(200).send(responseResult);
       }
     });
-  }
+  };
 }
 
 module.exports = new Controller();
