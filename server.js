@@ -1,6 +1,6 @@
 const express = require("express");
 const swaggerUI = require("swagger-ui-express");
-const greetingRoutes = require("./routes/greeting_routes");
+const greetingRoutes = require("./routes/greetRoutes");
 const logger = require("./utility/logger");
 const swaggerOption = require("./swagger.json");
 require("dotenv").config();

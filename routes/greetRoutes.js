@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controllObj = require("../controllers/greeting_controller");
+const controllObj = require("../controllers/greetController");
 
 //routes to GetData controller with path /greeting
 router.get("/greeting", controllObj.getData);
