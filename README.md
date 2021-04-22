@@ -7,5 +7,8 @@
 => Go To The Git Base.
 => Go To The Path Where You Want Clone Project.
 => Use This Command: "git clone https://github.com/DipeshMaywade/GreetingMessagingApp".
+=> install nodeJS in local machine.
+=> use "npm init" to create new package
+=> install dotenv and create .env file for database details
 
 ### Author Name: Dipesh Maywade
