@@ -9,6 +9,7 @@ class Validation {
       .pattern(new RegExp("^[A-Z]{1}[a-z]{2,}$"))
       .required(),
     message: joi.string().required(),
+    id: joi.number()
   });
 }
 

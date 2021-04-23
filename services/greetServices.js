@@ -1,6 +1,7 @@
 const modelObj = require("../models/greetSchema");
 
-class greetService {
+class GreetService {
+
   getData = (callback) => {
     modelObj.get((err, result) => {
       if (err) {
@@ -13,11 +14,8 @@ class greetService {
 
   getWithId = (data, callback) => {
     modelObj.getWithId(data, (err, result) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, result);
-      }
+      if (err) callback(err);
+      else callback(null, result);
     });
   };
 
@@ -52,4 +50,4 @@ class greetService {
   };
 }
 
-module.exports = new greetService();
+module.exports = new GreetService();

@@ -1,7 +1,6 @@
 const validateSchema = require("../utility/helper");
 const serviceObj = require("../services/greetServices");
-const logger = require("../utility/logger");
-
+const logger = require("../utility/logger")
 /**controller to past request to greetService
  * @class Controller
  * @param {httpRequest} req
@@ -70,8 +69,12 @@ class Controller {
    * @param result callback parameter
    */
   createData = (req, res) => {
+     let data={
+       name: req.body.name,
+       message: req.body.message
+      }
     var responseResult = {};
-    let result = validateSchema.schema.validate(req.body);
+    let result = validateSchema.schema.validate(data);
     if (result.error) {
       responseResult.success = false;
       responseResult.message = "Bad Request";
@@ -79,7 +82,7 @@ class Controller {
       logger.log("error", `${result.error.details[0].message}`);
       return res.status(422).send(responseResult);
     }
-    serviceObj.createNewData(req, (result) => {
+    serviceObj.createNewData(data, (result) => {
       if (result == null) {
         responseResult.success = false;
         responseResult.message = "failed";
@@ -98,8 +101,13 @@ class Controller {
    * @param result callback parameter
    */
   updateData = (req, res) => {
+    let data={
+      name: req.body.name,
+      message: req.body.message,
+      id: req.params.id
+     }
     let responseResult = {};
-    let result = validateSchema.schema.validate(req.body);
+    let result = validateSchema.schema.validate(data);
     if (result.error) {
       responseResult.success = false;
       responseResult.message = "Bad Request";
@@ -107,7 +115,7 @@ class Controller {
       logger.log("error", `${result.error.details[0].message}`);
       return res.status(422).send(responseResult);
     }
-    serviceObj.updateDataWithId(req, (result) => {
+    serviceObj.updateDataWithId(data, (result) => {
       if (result == null) {
         responseResult.success = false;
         responseResult.message = "Data not found";

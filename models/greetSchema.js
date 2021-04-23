@@ -4,7 +4,7 @@ const mysqlObj = require("../config/config.js");
  * @class Query
  * @param {httpRequest} req
  * @param {httpresponse} res
- * @description class method is used for perform oprtaion in databse.
+ * @description Query method is used for perform oprtaion in databse.
  */
 
 class Query {
@@ -55,14 +55,9 @@ class Query {
 
   //For updtae specific value from database.
   update = (data, callback) => {
-    let bodyData = {
-      name: data.body.name,
-      message: data.body.message,
-    };
-
     mysqlObj.connection.query(
       "update greetings set name=?, message=? where id=?",
-      [bodyData.name, bodyData.message, data.params.id],
+      [data.name, data.message, data.id],
       (err, result) => {
         if (result.affectedRows == 0) {
           callback(err);
@@ -70,8 +65,8 @@ class Query {
           let newData = {
             response: "updated success",
             affectedRow: result.affectedRows,
-            updatedName: data.body.name,
-            updatedmessage: data.body.message,
+            updatedName: data.name,
+            updatedmessage: data.message,
           };
           callback(newData);
         }
@@ -81,14 +76,9 @@ class Query {
 
   //For creat new data into the database.
   create = (data, callback) => {
-    let bodyData = {
-      name: data.body.name,
-      message: data.body.message,
-    };
-
     mysqlObj.connection.query(
       "insert into greetings (name, message) values(?, ?);",
-      [bodyData.name, bodyData.message],
+      [data.name, data.message],
       (err, result) => {
         if (result.affectedRows == 0) {
           callback(err);
@@ -96,8 +86,8 @@ class Query {
           let newData = {
             response: "success",
             insertedRow: result.affectedRows,
-            newName: data.body.name,
-            newMessage: data.body.message,
+            newName: data.name,
+            newMessage: data.message,
           };
           callback(newData);
         }
